@@ -10,6 +10,16 @@ import static org.junit.Assert.*;
  * BranchTests.java
  * Tests each possible path deviating from a conditional statement.
  * @Author Preet Patel
+ *
+ * The tests in this class perform branch coverage testing on the class dates.Dates. 100% branch coverage is not
+ * possible on the class due to the final array 'doomsdaysByMonth' declared in the class. Due to this, the for loop
+ * on line 92 never evaluates to false. This is because there are items inside the array so the first item is
+ * always retrieved. Due to this, the edge from line 92 to line 102 is never likely to be taken in any path.
+ *
+ * Lines 61,65, and 96 are indicated as partial tests by EMMA due to the BranchTests class not satisfying conditional
+ * coverage. Because of short-circuit boolean evaluation, there is no need to cover all four conditions for those if
+ * statements. Hence, only the minimal amount of tests that evaluate the if statements to true and false have been
+ * created since they are sufficient to provide branch coverage originating from those lines.
  */
 public class BranchTests {
 
@@ -22,6 +32,10 @@ public class BranchTests {
 //    @Test
 //    public void TestFinalCalendarDate() {
 //        assertEquals(Dates.Day.Sunday, Dates.dayOfWeek(2000,12,31));
+//    }
+//    @Test
+//    public void TestFinalCalendarDate() {
+//        assertEquals(Dates.Day.Saturday, Dates.dayOfWeek(2016,12,31));
 //    }
 
     @Test
@@ -54,16 +68,6 @@ public class BranchTests {
         }
     }
 
-    @Test
-    public void InvalidNegativeMonth() {
-        try {
-            Dates.dayOfWeek(2018,1,0);
-            fail();
-        } catch (IllegalArgumentException e) {
-            //do nothing and pass
-        }
-    }
-
     //This test is not needed as it adds to conditional coverage and not branch coverage
 //    @Test
 //    public void InvalidNegativeDay() {
@@ -79,6 +83,16 @@ public class BranchTests {
     public void InvalidOverflowMonth() {
         try {
             Dates.dayOfWeek(2000,13,12);
+            fail();
+        } catch (IllegalArgumentException e) {
+            //do nothing and pass
+        }
+    }
+
+    @Test
+    public void InvalidMonth() {
+        try {
+            Dates.dayOfWeek(2000,0,12);
             fail();
         } catch (IllegalArgumentException e) {
             //do nothing and pass
@@ -104,7 +118,4 @@ public class BranchTests {
             //do nothing and pass
         }
     }
-
-
-
 }

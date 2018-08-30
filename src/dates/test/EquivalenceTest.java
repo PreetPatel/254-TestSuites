@@ -3,7 +3,7 @@ package dates.test;
 import dates.Dates;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * EquivalenceTest.java
@@ -12,8 +12,16 @@ import static org.junit.Assert.assertEquals;
  */
 public class EquivalenceTest {
 
+    /**
+     * @TODO Finish this gabage
+     */
     @Test
-    public void TestFinalCalendarDate() {
-        assertEquals(Dates.Day.Sunday, Dates.dayOfWeek(2000,12,31));
+    public void InvalidNegativeMonth() {
+        try {
+            Dates.dayOfWeek(2000,6,0);
+            fail();
+        } catch (IllegalArgumentException e) {
+            //do nothing and pass
+        }
     }
 }
