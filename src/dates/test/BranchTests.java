@@ -78,7 +78,7 @@ public class BranchTests {
     @Test
     public void InvalidOverflowMonth() {
         try {
-            Dates.dayOfWeek(2018,13,12);
+            Dates.dayOfWeek(2000,13,12);
             fail();
         } catch (IllegalArgumentException e) {
             //do nothing and pass
