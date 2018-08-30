@@ -1,53 +1,82 @@
 package dates.test;
 
+import dates.Dates;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * BranchTests.java
+ * Tests each possible path deviating from a conditional statement.
+ * @Author Preet Patel
+ */
 public class BranchTests {
 
     @Test
     public void dayOfWeek() {
-        assertEquals(Dates.Day.Monday, Dates.dayOfWeek(2018,1,1));
+        Assert.assertEquals(Dates.Day.Thursday, Dates.dayOfWeek(2001,3,1));
+    }
+
+    //Don't need this one too as it doesn't add to branch coverage
+//    @Test
+//    public void TestFinalCalendarDate() {
+//        assertEquals(Dates.Day.Sunday, Dates.dayOfWeek(2000,12,31));
+//    }
+
+    @Test
+    public void TestCalendarDate() {
+        assertEquals(Dates.Day.Monday, Dates.dayOfWeek(2016,2,29));
     }
 
 //    @Test
 //    public void TestLeapYearAndJanuary() {
-//        assertEquals(Dates.Day.Tuesday, Dates.dayOfWeek(2016,1,12));
+//        assertEquals(dates.Dates.Day.Tuesday, dates.Dates.dayOfWeek(2016,1,12));
 //    }
 
 //    @Test
 //    public void TestLeapYearModulo400() {
-//        assertEquals(Dates.Day.Wednesday, Dates.dayOfWeek(2000,1,12));
+//        assertEquals(dates.Dates.Day.Wednesday, dates.Dates.dayOfWeek(2000,1,12));
 //    }
 
 //    @Test
 //    public void TestDoomsDay() {
-//        assertEquals(Dates.Day.Tuesday, Dates.dayOfWeek(2000,1,4));
+//        assertEquals(dates.Dates.Day.Tuesday, dates.Dates.dayOfWeek(2000,1,4));
 //    }
+
+    @Test
+    public void InvalidYear() {
+        try {
+            Dates.dayOfWeek(1000,8,30);
+            fail();
+        } catch (IllegalArgumentException e) {
+            //do nothing and pass
+        }
+    }
 
     @Test
     public void InvalidNegativeMonth() {
         try {
-            Dates.dayOfWeek(2018,0,12);
+            Dates.dayOfWeek(2018,1,0);
             fail();
         } catch (IllegalArgumentException e) {
             //do nothing and pass
         }
     }
 
-    @Test
-    public void InvalidNegativeDay() {
-        try {
-            Dates.dayOfWeek(2018,8,0);
-            fail();
-        } catch (IllegalArgumentException e) {
-            //do nothing and pass
-        }
-    }
+    //This test is not needed as it adds to conditional coverage and not branch coverage
+//    @Test
+//    public void InvalidNegativeDay() {
+//        try {
+//            Dates.dayOfWeek(2018,8,-1);
+//            fail();
+//        } catch (IllegalArgumentException e) {
+//            //do nothing and pass
+//        }
+//    }
 
     @Test
-    public void InvalidMonth() {
+    public void InvalidOverflowMonth() {
         try {
             Dates.dayOfWeek(2018,13,12);
             fail();
@@ -57,7 +86,7 @@ public class BranchTests {
     }
 
     @Test
-    public void InvalidDay() {
+    public void InvalidOverflowDay() {
         try {
             Dates.dayOfWeek(2018,8,32);
             fail();
@@ -67,17 +96,7 @@ public class BranchTests {
     }
 
     @Test
-    public void InvalidYearModulo100() {
-        try {
-            Dates.dayOfWeek(1000,8,32);
-            fail();
-        } catch (IllegalArgumentException e) {
-            //do nothing and pass
-        }
-    }
-
-    @Test
-    public void LeapYearWithInvalidMonth() {
+    public void LeapYearWithInvalidDayInFebruary() {
         try {
             Dates.dayOfWeek(2016,2,30);
             fail();
@@ -86,14 +105,6 @@ public class BranchTests {
         }
     }
 
-    @Test
-    public void TestFinalCalendarDate() {
-        assertEquals(Dates.Day.Sunday, Dates.dayOfWeek(2000,12,31));
-    }
 
-    @Test
-    public void TestCalendarDate() {
-        assertEquals(Dates.Day.Tuesday, Dates.dayOfWeek(2016,2,16));
-    }
 
 }
